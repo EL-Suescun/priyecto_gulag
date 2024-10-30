@@ -4,49 +4,64 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    backgroundColor: '#f9f9f9',
   },
   title: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: 15,
+    color: '#333',
   },
   searchInput: {
-    height: 40,
-    borderColor: '#ccc',
     borderWidth: 1,
-    borderRadius: 5,
-    paddingHorizontal: 10,
+    borderColor: '#ccc',
+    borderRadius: 10,
+    padding: 12,
     marginBottom: 15,
+    backgroundColor: '#fff', 
+    elevation: 2, 
   },
   itemContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 15,
-    padding: 10,
+    padding: 15,
     borderWidth: 1,
     borderColor: '#ddd',
-    borderRadius: 5,
+    borderRadius: 10,
+    backgroundColor: '#fff', 
+    elevation: 2, 
   },
   thumbnail: {
-    width: 50,
-    height: 50,
-    marginRight: 10,
+    width: 60,
+    height: 60,
+    marginRight: 15,
+    borderRadius: 8,
   },
   itemDetails: {
     flex: 1,
   },
   itemName: {
+    fontSize: 18,
     fontWeight: 'bold',
+    color: '#333', 
+  },
+  itemDescription: {
+    fontSize: 14,
+    color: '#777', 
   },
   itemPrice: {
+    fontSize: 16,
     fontWeight: 'bold',
     marginTop: 5,
+    color: '#4CAF50', 
   },
   emptyText: {
     textAlign: 'center',
-    color: '#888',
+    color: '#999',
     marginTop: 20,
+    fontSize: 16,
   },
-}); 
+});
 
 export default styles;

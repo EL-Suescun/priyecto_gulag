@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, FlatList, Image, StyleSheet } from 'react-native';
+import { View, Text, TextInput, FlatList, Image, TouchableOpacity } from 'react-native';
 import styles from '../styles/ItemListStyles';
 
 const ItemList = () => {
@@ -15,14 +15,14 @@ const ItemList = () => {
   );
 
   const renderItem = ({ item }) => (
-    <View style={styles.itemContainer}>
+    <TouchableOpacity style={styles.itemContainer}>
       <Image source={{ uri: item.image }} style={styles.thumbnail} />
       <View style={styles.itemDetails}>
         <Text style={styles.itemName}>{item.name}</Text>
-        <Text>{item.description}</Text>
-        <Text style={styles.itemPrice}>${item.price}</Text>
+        <Text style={styles.itemDescription}>{item.description}</Text>
+        <Text style={styles.itemPrice}>${item.price.toFixed(2)}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
