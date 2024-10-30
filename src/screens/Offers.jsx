@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, FlatList, Image } from 'react-native';
 import styles from '../styles/OffersStyles';
-import Icon from 'react-native-vector-icons/FontAwesome'; // Asegúrate de tener esta librería instalada
+import Icon from 'react-native-vector-icons/FontAwesome'; 
 
 const Offers = ({ offersData }) => {
   const exampleOffers = [
@@ -32,7 +32,6 @@ const Offers = ({ offersData }) => {
     <View style={styles.container}>
       <Text style={styles.title}>Ofertas</Text>
 
-      {/* Listado de ofertas */}
       <FlatList
         data={offersData || exampleOffers}
         keyExtractor={(item) => item.id.toString()}

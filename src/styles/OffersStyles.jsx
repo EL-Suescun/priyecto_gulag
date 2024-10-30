@@ -4,14 +4,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#f8f8f8', // Fondo claro para mayor contraste
+    backgroundColor: '#f8f8f8', 
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: '#333', // Color del texto más oscuro
-    textAlign: 'center', // Centrar el título
+    color: '#333', 
+    textAlign: 'center', 
   },
   offerItem: {
     flexDirection: 'row',
@@ -19,11 +19,11 @@ const styles = StyleSheet.create({
     padding: 15,
     marginVertical: 10,
     borderRadius: 10,
-    backgroundColor: '#ffffff', // Fondo blanco para los items
+    backgroundColor: '#ffffff', 
     shadowColor: '#000',
     shadowOpacity: 0.1,
     shadowRadius: 5,
-    elevation: 3, // Añadir sombra para darle profundidad
+    elevation: 3, 
   },
   image: {
     width: 60,
@@ -37,12 +37,12 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#444', // Un poco más oscuro para la descripción
+    color: '#444', 
     marginBottom: 5,
   },
   price: {
     fontSize: 16,
-    color: '#008000', // Verde para el valor
+    color: '#008000', 
     fontWeight: 'bold',
   },
   discountContainer: {
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
   discount: {
     fontSize: 14,
-    color: '#d9534f', // Rojo para el descuento
+    color: '#d9534f', 
     marginRight: 5,
   },
   discountIcon: {
