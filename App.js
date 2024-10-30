@@ -1,13 +1,13 @@
 import { View } from "react-native";
 // import Rutas from "./src/navigation/Rutas";
-import MyFavorites from "./src/screens/MyFavorites";
+import Offers from "./src/screens/Offers";
 
 
 const App = () => {
   return (
    <View style={{flex:1}}>
       {/* <Rutas/> */}
-<MyFavorites/>
+<Offers/>
    </View>
   );
 };
