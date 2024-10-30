@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert } from 'react-native';
+import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import styles from '../styles/HelpSupportStyles';
 
-const HelpSupport = () => {
+const HelpSupport = () => { 
   const [requestType, setRequestType] = useState('queja');
   const [description, setDescription] = useState('');
 
@@ -44,10 +44,11 @@ const HelpSupport = () => {
         multiline
         numberOfLines={4}
         placeholder="Escriba aquí su solicitud..."
+        placeholderTextColor="#999" // Cambiar color del placeholder
       />
 
       {/* Botón de enviar */}
-      <Button title="Enviar" onPress={handleSubmit} />
+      <Button title="Enviar" onPress={handleSubmit} color="#007BFF" />
     </View>
   );
 };
