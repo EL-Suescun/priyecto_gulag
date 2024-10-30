@@ -65,9 +65,12 @@ const ShoppingCart = () => {
           keyboardType="numeric"
           maxLength={2}
           value={item.quantity.toString()}
-          onChangeText={(quantity) =>
-            dispatch({ type: 'UPDATE_QUANTITY', payload: { id: item.id, quantity } })
-          }
+          onChangeText={(quantity) => {
+            const parsedQuantity = parseInt(quantity);
+            if (!isNaN(parsedQuantity) && parsedQuantity >= 1 && parsedQuantity <= 99) {
+              dispatch({ type: 'UPDATE_QUANTITY', payload: { id: item.id, quantity } });
+            }
+          }}
           placeholder="Cantidad"
         />
 
@@ -91,17 +94,21 @@ const ShoppingCart = () => {
     <View style={styles.container}>
       <Text style={styles.title}>Carrito de Compras</Text>
       
-      <FlatList
-        data={state.items}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
+      {state.items.length === 0 ? (
+        <Text style={styles.emptyMessage}>El carrito está vacío.</Text>
+      ) : (
+        <FlatList
+          data={state.items}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+        />
+      )}
 
       <Text style={styles.total}>Valor Total: ${state.total}</Text>
 
       <Button title="Proceder al Pago" onPress={() => Alert.alert('Pago', `Total a pagar: $${state.total}`)} />
     </View>
-  );
+  );   
 };
 
 export default ShoppingCart;

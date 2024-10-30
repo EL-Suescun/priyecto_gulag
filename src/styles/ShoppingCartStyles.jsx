@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   itemContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 15,
+    marginBottom: 10,
     padding: 10,
     borderWidth: 1,
     borderColor: '#ddd',
@@ -66,6 +66,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginVertical: 15,
+  },
+  emptyMessage: {
+    fontSize: 18,
+    color: '#999',
+    textAlign: 'center',
+    marginVertical: 20,
   },
 });
 

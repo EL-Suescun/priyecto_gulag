@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home";
 import Usuario from "../screens/Usuario";
 import Opciones from "../screens/Opciones";
-import PaymentBranch from '../screens/PaymentBranch'
+import ShoppingCart from '../screens/ShoppingCart'
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 const Tab = createBottomTabNavigator();
@@ -59,11 +59,11 @@ const TabNavigator = () => {
           }}
         />
         <Tab.Screen
-          name="PaymentBranch"
-          component={PaymentBranch}
+          name="ShoppingCart"
+          component={ShoppingCart}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <Icon name="Item" color={color} size={size} />
+              <Icon name="ShoppingCart" color={color} size={size} />
             ),
           }}
         />
