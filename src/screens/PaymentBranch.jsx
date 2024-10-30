@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, FlatList, Image, Button, Alert } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-import  styles from '../styles/PaymentBranchStyles'
+import styles from '../styles/PaymentBranchStyles';
 
 const PaymentBranch = () => {
   const [items, setItems] = useState([
@@ -41,14 +41,14 @@ const PaymentBranch = () => {
       <Image source={{ uri: item.image }} style={styles.thumbnail} />
       <View style={styles.itemDetails}>
         <Text style={styles.itemName}>{item.name}</Text>
-        <Text>{item.description}</Text>
+        <Text style={styles.itemDescription}>{item.description}</Text>
         <TextInput
           style={styles.numericInput}
           keyboardType="numeric"
           maxLength={2}
           value={item.quantity.toString()}
           onChangeText={(quantity) => updateQuantity(item.id, quantity)}
-          placeholder="Cantidad"
+          placeholder="Cant."
         />
         <Text style={styles.itemPrice}>${item.price * item.quantity}</Text>
       </View>
@@ -63,6 +63,8 @@ const PaymentBranch = () => {
         data={items}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.flatListContent}
       />
 
       <TextInput
@@ -73,7 +75,7 @@ const PaymentBranch = () => {
         style={styles.input}
       />
 
-      <Text>Forma de pago:</Text>
+      <Text style={styles.paymentMethodLabel}>Forma de pago:</Text>
       <Picker
         selectedValue={paymentMethod}
         onValueChange={(itemValue) => setPaymentMethod(itemValue)}
@@ -93,4 +95,3 @@ const PaymentBranch = () => {
 };
 
 export default PaymentBranch;
- 

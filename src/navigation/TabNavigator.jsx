@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home";
 import Usuario from "../screens/Usuario";
 import Opciones from "../screens/Opciones";
-import HelpSupport from '../screens/HelpSupport'
+import PaymentBranch from '../screens/PaymentBranch'
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 const Tab = createBottomTabNavigator();
@@ -59,8 +59,8 @@ const TabNavigator = () => {
           }}
         />
         <Tab.Screen
-          name="HelpSupport"
-          component={HelpSupport}
+          name="PaymentBranch"
+          component={PaymentBranch}
           options={{
             tabBarIcon: ({ color, size }) => (
               <Icon name="Item" color={color} size={size} />
