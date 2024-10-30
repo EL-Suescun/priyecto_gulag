@@ -8,7 +8,7 @@ const examplePurchases = [
     id: 1,
     image: 'https://via.placeholder.com/150', // URL de imagen de muestra
     description: 'Producto 1 - Descripción del producto de muestra',
-    status: 'En camino',
+    status: 'En tránsito',
   },
   {
     id: 2,
