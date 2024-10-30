@@ -17,7 +17,7 @@ const ItemDetails = () => {
   const [question, setQuestion] = useState('');
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState(0);
-  const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState([]); 
   const [comments, setComments] = useState([]);
 
   const handleSendQuestion = () => {
@@ -50,12 +50,12 @@ const ItemDetails = () => {
       <Text style={styles.title}>{item.name}</Text>
       <Image source={{ uri: item.image }} style={styles.image} />
       <Text style={styles.description}>{item.description}</Text>
-      <Text style={styles.price}>${item.price}</Text>
+      <Text style={styles.price}>${item.price.toFixed(2)}</Text>
       <Text style={styles.featuresTitle}>Características del producto</Text>
       <Text style={styles.features}>{item.features}</Text>
 
       <Text style={styles.sectionTitle}>Medios de pago</Text>
-      <Text>{item.paymentMethods.join(', ')}</Text>
+      <Text style={styles.paymentMethods}>{item.paymentMethods.join(', ')}</Text>
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Preguntas al vendedor</Text>
@@ -101,7 +101,7 @@ const ItemDetails = () => {
         />
       </View>
     </View>
-  );
+  ); 
 };
 
 export default ItemDetails;
