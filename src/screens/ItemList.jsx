@@ -9,8 +9,7 @@ const ItemList = () => {
     { id: '2', name: 'Producto 2', description: 'Breve descripción del producto 2', price: 15000, image: 'https://via.placeholder.com/50' },
     { id: '3', name: 'Producto 3', description: 'Breve descripción del producto 3', price: 35000, image: 'https://via.placeholder.com/50' }
   ]);
-
-  // Filtrar los productos con base en el texto de búsqueda
+ 
   const filteredItems = items.filter(item =>
     item.name.toLowerCase().includes(searchText.toLowerCase())
   );
