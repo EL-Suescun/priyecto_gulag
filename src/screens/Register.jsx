@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert, Platform } from 'react-native';
+import { View, Text, TextInput, Button, Alert, Platform, Pressable } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useNavigation } from "@react-navigation/native";
-import styles from "../styles/RegisterStyles";
-import CountrySelect from '../components/CountrySelect';
- 
+import styles from "../styles/RegisterStyles"; // Asegúrate de que esta ruta es correcta
+import CountrySelect from '../components/CountrySelect'; // Verifica que este componente esté correctamente implementado
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const Register = () => {
   const navigation = useNavigation();
@@ -17,6 +17,7 @@ const Register = () => {
   const [country, setCountry] = useState('Colombia');
   const [department, setDepartment] = useState('');
   const [city, setCity] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const validatePassword = (password) => {
     const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8}$/;
@@ -63,9 +64,11 @@ const Register = () => {
   };
 
   const onDateChange = (event, selectedDate) => {
-    setShowDatePicker(false);
-    if (selectedDate) {
+    if (event.type === 'set') { // Asegúrate de que se ha seleccionado una fecha
+      setShowDatePicker(false);
       setBirthDate(selectedDate.toISOString().split('T')[0]); // Formato YYYY-MM-DD
+    } else {
+      setShowDatePicker(false); // Cierra el selector si se cancela
     }
   };
 
@@ -81,14 +84,19 @@ const Register = () => {
         style={styles.input}
       />
 
-      <TextInput
-        placeholder="Contraseña"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        maxLength={8}
-        style={styles.input}
-      />
+      <View style={styles.passwordContainer}>
+        <TextInput
+          placeholder="Contraseña"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={!showPassword}
+          maxLength={8}
+          style={styles.passwordInput}
+        />
+        <Pressable onPress={() => setShowPassword(!showPassword)}>
+          <Icon name={showPassword ? "eye-off" : "eye"} size={24} color="#000" />
+        </Pressable>
+      </View>
 
       <TextInput
         placeholder="Correo"
@@ -98,10 +106,11 @@ const Register = () => {
         style={styles.input}
       />
 
-      <View>
-        <Button title="Selecciona tu fecha de nacimiento" onPress={() => setShowDatePicker(true)} />
-        {birthDate ? <Text>Fecha de nacimiento: {birthDate}</Text> : null}
-      </View>
+      <Text style={styles.dateLabel}>Selecciona tu fecha de nacimiento:</Text>
+      <Pressable style={styles.dateButton} onPress={() => setShowDatePicker(true)}>
+        <Text style={styles.dateButtonText}>{birthDate ? birthDate : "Fecha no seleccionada"}</Text>
+      </Pressable>
+
       {showDatePicker && (
         <DateTimePicker
           value={new Date()}
@@ -130,7 +139,9 @@ const Register = () => {
         setCity={setCity} 
       />
 
-      <Button title="Registrar" onPress={handleRegister} />
+      <Pressable style={styles.registerButton} onPress={handleRegister}>
+        <Text style={styles.registerButtonText}>Registrar</Text>
+      </Pressable>
     </View>
   );
 };
