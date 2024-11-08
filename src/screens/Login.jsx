@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Pressable, Alert } from "react-native";
+import { View, Text, TextInput, Pressable } from "react-native";
 import styles from "../styles/LoginStyles";
 import { useNavigation } from "@react-navigation/native";
 
@@ -8,25 +8,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  // Función para validar el formulario
-  const validateAndLogin = () => {
-    // Validación del usuario
-    if (username.length > 10) {
-      Alert.alert("Error", "El nombre de usuario no debe exceder 10 caracteres.");
-      return;
-    }
-
-    // Validación de la contraseña
-    const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[a-zA-Z])(?=.*\d).{1,8}$/;
-    if (!passwordRegex.test(password)) {
-      Alert.alert(
-        "Error",
-        "La contraseña debe tener un máximo de 8 caracteres, incluir una letra mayúscula, un carácter especial, y contener letras y números."
-      );
-      return;
-    }
-
-    // Si pasa las validaciones, navega a la pantalla de inicio
+  const navigateToHome = () => {
     navigation.navigate("Home");
   };
 
@@ -44,6 +26,7 @@ const Login = () => {
           maxLength={10}
           value={username}
           onChangeText={setUsername}
+          placeholderTextColor="#777"
         />
         <TextInput
           style={styles.TextInput}
@@ -52,16 +35,16 @@ const Login = () => {
           maxLength={8}
           value={password}
           onChangeText={setPassword}
+          placeholderTextColor="#777"
         />
 
-        <Pressable style={styles.button} onPress={validateAndLogin}>
+        <Pressable style={styles.button} onPress={navigateToHome}>
           <Text style={styles.buttonText}>Iniciar sesión</Text>
         </Pressable>
-        <View>
-          <Pressable onPress={() => navigation.navigate("Register")}>
-            <Text style={styles.createAccount}>Crear una cuenta</Text>
-          </Pressable>
-        </View>  
+        
+        <Pressable onPress={() => navigation.navigate("Register")}>
+          <Text style={styles.createAccount}>Crear una cuenta</Text>
+        </Pressable>
       </View>
     </View>
   );

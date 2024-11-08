@@ -1,11 +1,12 @@
 import React from "react";
 import { StatusBar, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Home from "../screens/Home";
-import Usuario from "../screens/Usuario";
-import Opciones from "../screens/Opciones";
-import ItemList from '../screens/ItemList';
+import ItemList from "../screens/ItemList";
+import ShoppingCart from "../screens/ShoppingCart";
+import Profile from "../screens/Profile";
+import HelpSupport from "../screens/HelpSupport";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import styles from "../styles/TabNavigatorStyles";
 
 const Tab = createBottomTabNavigator();
 
@@ -16,33 +17,20 @@ const TabNavigator = () => {
       <Tab.Navigator
         screenOptions={{
           headerBackground: () => (
-            <View style={{ flex: 1, backgroundColor: '#212f3d' }} />
+            <View style={styles.headerBackground} />
           ),
-          headerBackgroundContainerStyle: {
-            backgroundColor: "#212f3d",
-          },
-          headerTitleStyle: {
-            color: "white",
-            fontSize: 22,
-            fontWeight: "bold",
-          },
-          tabBarActiveTintColor: "white",
-          tabBarInactiveTintColor: "gray",
-          tabBarStyle: { backgroundColor: "#212f3d" },
+          headerBackgroundContainerStyle: styles.headerBackgroundContainerStyle,
+          headerTitleStyle: styles.headerTitle,
+          tabBarActiveTintColor: "#E5E8E8", // Color de ítem activo
+          tabBarInactiveTintColor: "#AAB7B8", // Color de ítem inactivo
+          tabBarStyle: styles.tabBarStyle,
+          tabBarLabelStyle: styles.tabBarLabelStyle, // Estilo para las etiquetas
+          tabBarItemStyle: styles.tabBarItemStyle, // Estilo para el ítem
         }}
       >
         <Tab.Screen
-          name="David"
-          component={Usuario}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Icon name="person" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Inicio"
-          component={Home}
+          name="Home"
+          component={ItemList}
           options={{
             tabBarIcon: ({ color, size }) => (
               <Icon name="home" color={color} size={size} />
@@ -50,20 +38,29 @@ const TabNavigator = () => {
           }}
         />
         <Tab.Screen
-          name="Opciones"
-          component={Opciones}
+          name="Shopping Cart"
+          component={ShoppingCart}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <Icon name="settings" color={color} size={size} />
+              <Icon name="shopping-cart" color={color} size={size} />
             ),
           }}
         />
         <Tab.Screen
-          name="ItemList"
-          component={ItemList}
+          name="Profile"
+          component={Profile}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <Icon name="ShoppingCart" color={color} size={size} />
+              <Icon name="account-circle" color={color} size={size} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Help & Support"
+          component={HelpSupport}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Icon name="help" color={color} size={size} />
             ),
           }}
         />
