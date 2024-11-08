@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, Alert } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import styles from '../styles/HelpSupportStyles';
 
@@ -48,7 +48,11 @@ const HelpSupport = () => {
       />
 
       {/* Botón de enviar */}
-      <Button title="Enviar" onPress={handleSubmit} color="#007BFF" />
+      <Button 
+        title="Enviar"
+        onPress={handleSubmit}
+        color="#007BFF" // Color personalizado del botón
+      />
     </View>
   );
 };

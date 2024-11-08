@@ -35,6 +35,18 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 5,
     backgroundColor: '#fff', // Color de fondo del campo de texto
+    textAlignVertical: 'top', // Asegura que el texto se alinee desde arriba
+  },
+  button: {
+    backgroundColor: '#007BFF', // Azul para el botón
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 20, // Separar el botón de los campos
+  },
+  buttonText: {
+    color: '#fff', // Texto blanco en el botón
+    fontSize: 18,
+    textAlign: 'center', // Centrar texto del botón
   },
 });
 
