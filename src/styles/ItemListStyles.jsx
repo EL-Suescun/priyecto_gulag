@@ -126,6 +126,24 @@ const styles = StyleSheet.create({
   outOfStockPrice: {
     color: '#ccc',  
   },
+
+  favoriteRemoveContainer: {
+    flexDirection: 'column', 
+    justifyContent: 'flex-end', 
+    alignItems: 'flex-end', 
+  },
+
+  removeButton: {
+    backgroundColor: '#FF4C4C',
+    padding: 5,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginTop: 10, 
+  },
+  removeButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
 });
 
 export default styles;

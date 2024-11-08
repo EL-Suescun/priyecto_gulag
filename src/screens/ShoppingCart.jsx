@@ -1,11 +1,15 @@
-import React, { useReducer, useEffect } from 'react';
-import { View, Text, TextInput, FlatList, Image, Button, Alert, TouchableOpacity } from 'react-native';
+import React, { useReducer, useEffect, useState } from 'react';
+import { View, Text, FlatList, Button, Alert } from 'react-native';
+import ItemCard from './ItemCard'; // Importa el componente ItemCard
+import PaymentBranch from './PaymentBranch'; // Importa el componente PaymentBranch
+import Modal from 'react-native-modal'; // Importa la librería de modal
 import styles from '../styles/ShoppingCartStyles';
 
 const initialState = {
   items: [
-    { id: '1', name: 'Producto 1', description: 'Breve descripción del producto 1', price: 25000, quantity: 1, image: 'https://via.placeholder.com/50' },
-    { id: '2', name: 'Producto 2', description: 'Breve descripción del producto 2', price: 15000, quantity: 1, image: 'https://via.placeholder.com/50' }
+    { id: '1', name: 'Producto 1', shortDescription: 'Breve descripción del producto 1', price: 25000, available: 10, favorite: true, category: 'Electrónica', offer: 0, image: 'https://via.placeholder.com/50', quantity: 1 },
+    { id: '2', name: 'Producto 2', shortDescription: 'Breve descripción del producto 2', price: 15000, available: 0, favorite: false, category: 'Ropa', offer: 20, image: 'https://via.placeholder.com/50', quantity: 1 },
+    { id: '3', name: 'Producto 3', shortDescription: 'Breve descripción del producto 3', price: 35000, available: 5, favorite: false, category: 'Electrónica', offer: 0, image: 'https://via.placeholder.com/50', quantity: 1 },
   ],
   total: 0,
 };
@@ -16,8 +20,8 @@ const cartReducer = (state, action) => {
       return {
         ...state,
         items: state.items.map(item =>
-          item.id === action.payload.id
-            ? { ...item, quantity: Math.min(item.quantity + 1, 99) }
+          item.id === action.payload.id && item.available > item.quantity
+            ? { ...item, quantity: item.quantity + 1 }
             : item
         ),
       };
@@ -26,7 +30,7 @@ const cartReducer = (state, action) => {
         ...state,
         items: state.items.map(item =>
           item.id === action.payload.id
-            ? { ...item, quantity: Math.min(parseInt(action.payload.quantity) || 0, 99) }
+            ? { ...item, quantity: Math.min(parseInt(action.payload.quantity) || 0, item.available) }
             : item
         ),
       };
@@ -47,53 +51,41 @@ const cartReducer = (state, action) => {
 
 const ShoppingCart = () => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
+  const [isModalVisible, setIsModalVisible] = useState(false); 
 
   useEffect(() => {
     dispatch({ type: 'CALCULATE_TOTAL' });
   }, [state.items]);
 
-  const renderItem = ({ item }) => (
-    <View style={styles.itemContainer}>
-      <Image source={{ uri: item.image }} style={styles.thumbnail} />
-      <View style={styles.itemDetails}>
-        <Text style={styles.itemName}>{item.name}</Text>
-        <Text>{item.description}</Text>
-        <Text style={styles.itemPrice}>${item.price}</Text>
-        
-        <TextInput
-          style={styles.numericInput}
-          keyboardType="numeric"
-          maxLength={2}
-          value={item.quantity.toString()}
-          onChangeText={(quantity) => {
-            const parsedQuantity = parseInt(quantity);
-            if (!isNaN(parsedQuantity) && parsedQuantity >= 1 && parsedQuantity <= 99) {
-              dispatch({ type: 'UPDATE_QUANTITY', payload: { id: item.id, quantity } });
-            }
-          }}
-          placeholder="Cantidad"
-        />
+  const handleFavoriteToggle = (itemId) => {
+    console.log(`Producto ${itemId} favorito cambiado`);
+  };
 
-        <TouchableOpacity
-          style={styles.addButton}
-          onPress={() => dispatch({ type: 'ADD_QUANTITY', payload: { id: item.id } })}
-        >
-          <Text style={styles.addButtonText}>Agregar más</Text>
-        </TouchableOpacity>
-      </View>
-      <TouchableOpacity
-        style={styles.deleteButton}
-        onPress={() => dispatch({ type: 'REMOVE_ITEM', payload: { id: item.id } })}
-      >
-        <Text style={styles.deleteButtonText}>Eliminar</Text>
-      </TouchableOpacity>
-    </View>
+  const handleRemoveItem = (itemId) => {
+    dispatch({ type: 'REMOVE_ITEM', payload: { id: itemId } });
+  };
+
+  const renderItem = ({ item }) => (
+    <ItemCard
+      item={item}
+      onFavoriteToggle={handleFavoriteToggle}
+      onRemoveItem={handleRemoveItem}
+      showRemoveButton={true}  
+    />
   );
+
+  const openPaymentModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const closePaymentModal = () => {
+    setIsModalVisible(false);
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Carrito de Compras</Text>
-      
+
       {state.items.length === 0 ? (
         <Text style={styles.emptyMessage}>El carrito está vacío.</Text>
       ) : (
@@ -106,9 +98,25 @@ const ShoppingCart = () => {
 
       <Text style={styles.total}>Valor Total: ${state.total}</Text>
 
-      <Button title="Proceder al Pago" onPress={() => Alert.alert('Pago', `Total a pagar: $${state.total}`)} />
+      <Button title="Proceder al Pago" onPress={openPaymentModal} />
+
+      <Modal 
+        isVisible={isModalVisible}
+        onBackdropPress={closePaymentModal} 
+        onBackButtonPress={closePaymentModal} 
+        animationIn="slideInUp" 
+        animationOut="slideOutDown"
+      >
+        <View style={{ flex: 1 }}>
+          <PaymentBranch 
+            closeModal={closePaymentModal} 
+            items={state.items}
+            total={state.total} 
+          />
+        </View>
+      </Modal>
     </View>
-  );   
+  );
 };
 
 export default ShoppingCart;

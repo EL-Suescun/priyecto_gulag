@@ -3,24 +3,11 @@ import { View, Text, TextInput, FlatList, Image, Button, Alert } from 'react-nat
 import { Picker } from '@react-native-picker/picker';
 import styles from '../styles/PaymentBranchStyles';
 
-const PaymentBranch = () => {
-  const [items, setItems] = useState([
-    { id: '1', name: 'Producto 1', description: 'Breve descripción del producto 1', price: 25000, quantity: 1, image: 'https://via.placeholder.com/50' },
-    { id: '2', name: 'Producto 2', description: 'Breve descripción del producto 2', price: 15000, quantity: 1, image: 'https://via.placeholder.com/50' }
-  ]);
+const PaymentBranch = ({ items, total, closeModal }) => {
   const [address, setAddress] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('');
 
   const updateQuantity = (id, quantity) => {
-    setItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === id ? { ...item, quantity: parseInt(quantity) } : item
-      )
-    );
-  };
-
-  const calculateTotal = () => {
-    return items.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
   const handlePayment = () => {
@@ -32,8 +19,8 @@ const PaymentBranch = () => {
       Alert.alert('Error', 'Por favor, selecciona una forma de pago.');
       return;
     }
-    // Aquí iría la llamada a la API de simulación de pago
-    Alert.alert('Pago Exitoso', `Total pagado: $${calculateTotal()}`);
+    Alert.alert('Pago Exitoso', `Total pagado: $${total}`);
+    closeModal();
   };
 
   const renderItem = ({ item }) => (
@@ -41,15 +28,7 @@ const PaymentBranch = () => {
       <Image source={{ uri: item.image }} style={styles.thumbnail} />
       <View style={styles.itemDetails}>
         <Text style={styles.itemName}>{item.name}</Text>
-        <Text style={styles.itemDescription}>{item.description}</Text>
-        <TextInput
-          style={styles.numericInput}
-          keyboardType="numeric"
-          maxLength={2}
-          value={item.quantity.toString()}
-          onChangeText={(quantity) => updateQuantity(item.id, quantity)}
-          placeholder="Cant."
-        />
+        <Text style={styles.itemDescription}>{item.shortDescription}</Text>
         <Text style={styles.itemPrice}>${item.price * item.quantity}</Text>
       </View>
     </View>
@@ -87,7 +66,7 @@ const PaymentBranch = () => {
         <Picker.Item label="Efecty" value="Efecty" />
       </Picker>
 
-      <Text style={styles.total}>Valor Total: ${calculateTotal()}</Text>
+      <Text style={styles.total}>Valor Total: ${total}</Text>
 
       <Button title="Proceder al Pago" onPress={handlePayment} />
     </View>

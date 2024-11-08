@@ -3,67 +3,62 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 15, // Reducción del padding general
+    padding: 15,
     backgroundColor: '#f8f8f8',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 10, // Espaciado reducido
+    marginBottom: 15, 
     color: '#333',
   },
   itemContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10, // Espacio entre elementos reducido
-    padding: 10,
+    marginBottom: 15, 
+    padding: 12,
     backgroundColor: '#fff',
-    borderRadius: 8,
+    borderRadius: 10,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    elevation: 3,
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.2,
+    elevation: 5, 
   },
   thumbnail: {
-    width: 50,
-    height: 50,
-    marginRight: 10,
-    borderRadius: 5,
+    width: 60,
+    height: 60,
+    marginRight: 15,
+    borderRadius: 8, 
   },
   itemDetails: {
     flex: 1,
   },
   itemName: {
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 18,
+    color: '#333', 
   },
   itemDescription: {
-    fontSize: 12,
-    color: '#666', // Color más sutil para la descripción
-  },
-  numericInput: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    padding: 5,
-    marginTop: 5,
-    width: '60%', // Limitando el ancho del campo numérico
+    fontSize: 14,
+    color: '#777', 
   },
   itemPrice: {
-    marginTop: 5,
+    marginTop: 8,
     fontWeight: 'bold',
     color: '#e91e63',
+    fontSize: 16, 
   },
   input: {
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 5,
-    padding: 10,
-    marginVertical: 10, // Espaciado vertical reducido
+    borderRadius: 8,
+    padding: 12,
+    marginVertical: 15, 
     backgroundColor: '#fff',
+    fontSize: 16, 
   },
   paymentMethodLabel: {
-    marginVertical: 5,
+    marginVertical: 8,
     fontSize: 16,
     fontWeight: 'bold',
     color: '#333',
@@ -73,18 +68,30 @@ const styles = StyleSheet.create({
     width: '100%',
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 5,
+    borderRadius: 8,
     marginBottom: 15,
     backgroundColor: '#fff',
   },
   total: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
-    marginVertical: 10, // Espaciado vertical reducido
+    marginVertical: 15, 
     color: '#333',
   },
   flatListContent: {
-    paddingBottom: 10, // Espaciado en el fondo de la lista
+    paddingBottom: 20,
+  },
+  button: {
+    backgroundColor: '#007bff',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    marginVertical: 15,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 18,
+    textAlign: 'center',
   },
 });
 
