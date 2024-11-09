@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Image, Pressable, Modal, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { doc, updateDoc, setDoc, deleteDoc } from 'firebase/firestore';
@@ -9,6 +9,20 @@ import ItemDetails from './ItemDetails';
 const ItemCard = ({ item, onFavoriteToggle, onRemoveItem, showRemoveButton }) => {
   const [isFavorite, setIsFavorite] = useState(item.favorite);
   const [modalVisible, setModalVisible] = useState(false);
+
+  useEffect(() => {
+    // Verificar si el producto debe eliminarse de favoritos cuando el componente se monte
+    const checkIfFavorite = async () => {
+      if (item.favorite === false) {
+        // Eliminar de la tabla favoritos si el producto tiene favorite = false
+        const favoriteRef = doc(db, 'favoritos', item.id);
+        await deleteDoc(favoriteRef);
+      }
+    };
+
+    // Llamar a checkIfFavorite cuando el estado de 'isFavorite' cambie
+    checkIfFavorite();
+  }, [item.favorite]);  // Dependencia de item.favorite
 
   const handleFavoriteToggle = async () => {
     const newFavoriteStatus = !isFavorite;
@@ -22,7 +36,8 @@ const ItemCard = ({ item, onFavoriteToggle, onRemoveItem, showRemoveButton }) =>
       // Si el producto se marca como favorito, agrégalo a la colección 'favoritos'
       if (newFavoriteStatus) {
         const favoriteRef = doc(db, 'favoritos', item.id);  // Usa el id del producto
-        await setDoc(favoriteRef, item);  // Agregar el producto completo a la colección favoritos
+        const favoriteItem = { ...item, favorite: true };  // Asegurarse de que el campo favorite esté en true
+        await setDoc(favoriteRef, favoriteItem);  // Agregar el producto completo a la colección favoritos
       } else {
         // Si se desmarca como favorito, elimínalo de la colección 'favoritos'
         const favoriteRef = doc(db, 'favoritos', item.id);
@@ -33,7 +48,7 @@ const ItemCard = ({ item, onFavoriteToggle, onRemoveItem, showRemoveButton }) =>
       setIsFavorite(isFavorite);  // Si ocurre un error, revertir el estado
     }
   };
-
+  
   const discountedPrice = item.offer > 0 ? item.price * (1 - item.offer / 100) : null;
   const isOutOfStock = item.available === 0;
 
@@ -61,12 +76,6 @@ const ItemCard = ({ item, onFavoriteToggle, onRemoveItem, showRemoveButton }) =>
       </Pressable>
 
       {isOutOfStock && <Text style={styles.outOfStockText}>Agotado</Text>}
-
-      {showRemoveButton && (
-        <Pressable onPress={() => onRemoveItem(item.id)} style={styles.removeButton}>
-          <Text style={styles.removeButtonText}>Eliminar</Text>
-        </Pressable>
-      )}
 
       <Modal
         animationType="slide"

@@ -1,66 +1,5 @@
 import { StyleSheet } from 'react-native';
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f2f2f2',
-    padding: 10,
-  },
-  title: {
-    fontSize: 26,
-    fontWeight: '700',
-    color: '#333',
-    marginBottom: 20,
-  },
-  searchInput: {
-    height: 40,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingLeft: 10,
-    marginBottom: 10,
-    backgroundColor: '#fff',
-  },
-  emptyText: {
-    textAlign: 'center',
-    fontSize: 16,
-    color: '#888',
-  },
-  categoryContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 20,
-  },
-  categoryButton: {
-    backgroundColor: '#ddd',
-    paddingVertical: 8,
-    paddingHorizontal: 15,
-    borderRadius: 20,
-    alignItems: 'center',
-  },
-  categoryButtonText: {
-    fontSize: 14,
-    color: '#333',
-  },
-  categoryButtonSelected: {
-    backgroundColor: '#1e3a8a',
-    borderWidth: 2,
-    borderColor: '#0c2461',
-    paddingVertical: 8,
-    paddingHorizontal: 20,
-    borderRadius: 25,
-    alignItems: 'center',
-    shadowColor: '#0c2461',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 5,
-  },
-  categoryButtonTextSelected: {
-    fontSize: 14,
-    color: '#fff',
-    fontWeight: 'bold',
-  },
   itemContainer: {
     backgroundColor: '#fff',
     borderRadius: 10,
@@ -75,6 +14,7 @@ const styles = StyleSheet.create({
     elevation: 4,
     borderLeftWidth: 5,
     borderLeftColor: '#ff6347',
+    position: 'relative', // Contexto de posición para el ícono del corazón
   },
   thumbnail: {
     width: 50,
@@ -84,6 +24,7 @@ const styles = StyleSheet.create({
   },
   itemDetails: {
     flex: 1,
+    paddingRight: 40, // Espacio adicional para el ícono del corazón
   },
   itemName: {
     fontSize: 18,
@@ -111,14 +52,11 @@ const styles = StyleSheet.create({
     color: '#ff6347',
     fontWeight: 'bold',
   },
-  favorite: {
-    fontSize: 30,
-    marginTop: 5,
-  },
   favoriteIcon: {
     position: 'absolute',
     top: 10,
     right: 10,
+    zIndex: 1,  // Asegura que el ícono esté encima de otros elementos si es necesario
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
@@ -130,49 +68,58 @@ const styles = StyleSheet.create({
   outOfStockPrice: {
     color: '#ccc',
   },
-  favoriteRemoveContainer: {
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-  },
-  removeButton: {
-    backgroundColor: '#FF4C4C',
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 10,
-    alignItems: 'center',
-    marginTop: 15,
-    shadowColor: '#FF4C4C',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-  },
-  removeButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
-  modalContainer: {
+  container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    backgroundColor: '#f9f9f9',
+    paddingTop: 20,
+    paddingHorizontal: 15,
   },
-  modalContent: {
-    padding: 25,
-    backgroundColor: 'white',
-    borderRadius: 15,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
-    elevation: 10,
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 20,
+    textAlign: 'center',
   },
-  modalImage: {
-    width: 150,
-    height: 150,
+  searchInput: {
+    height: 40,
+    borderColor: '#ddd',
+    borderWidth: 1,
+    borderRadius: 20,
+    paddingLeft: 15,
+    marginBottom: 20,
+    fontSize: 16,
+  },
+  categoryContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    marginBottom: 20,
+  },
+  categoryButton: {
+    backgroundColor: '#fff',
+    borderRadius: 20,
+    paddingVertical: 8,
+    paddingHorizontal: 15,
     marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#ddd',
   },
-  
+  categoryButtonSelected: {
+    backgroundColor: '#ff6347',
+    borderColor: '#ff6347',
+  },
+  categoryButtonText: {
+    fontSize: 16,
+    color: '#333',
+  },
+  emptyText: {
+    textAlign: 'center',
+    fontSize: 18,
+    color: '#888',
+    marginTop: 20,
+  },
 });
+
 
 export default styles;
