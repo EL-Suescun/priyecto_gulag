@@ -1,16 +1,14 @@
 import React, { useReducer, useEffect, useState } from 'react';
-import { View, Text, FlatList, Button, Alert } from 'react-native';
-import ItemCard from './ItemCard'; 
+import { View, Text, FlatList, Button } from 'react-native';
+import { db } from '../database/firebase'; 
+import { collection, getDocs } from 'firebase/firestore';
+import ItemShoppingCard from './ItemShoppingCard';  
 import PaymentBranch from './PaymentBranch'; 
 import Modal from 'react-native-modal'; 
 import styles from '../styles/ShoppingCartStyles';
 
 const initialState = {
-  items: [
-    { id: '1', name: 'Producto 1', shortDescription: 'Breve descripción del producto 1', price: 25000, available: 10, favorite: true, category: 'Electrónica', offer: 0, image: 'https://via.placeholder.com/50', quantity: 1 },
-    { id: '2', name: 'Producto 2', shortDescription: 'Breve descripción del producto 2', price: 15000, available: 0, favorite: false, category: 'Ropa', offer: 20, image: 'https://via.placeholder.com/50', quantity: 1 },
-    { id: '3', name: 'Producto 3', shortDescription: 'Breve descripción del producto 3', price: 35000, available: 5, favorite: false, category: 'Electrónica', offer: 0, image: 'https://via.placeholder.com/50', quantity: 1 },
-  ],
+  items: [],
   total: 0,
 };
 
@@ -20,17 +18,8 @@ const cartReducer = (state, action) => {
       return {
         ...state,
         items: state.items.map(item =>
-          item.id === action.payload.id && item.available > item.quantity
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        ),
-      };
-    case 'UPDATE_QUANTITY':
-      return {
-        ...state,
-        items: state.items.map(item =>
-          item.id === action.payload.id
-            ? { ...item, quantity: Math.min(parseInt(action.payload.quantity) || 0, item.available) }
+          item.id === action.payload.id && item.available > item.cantidad
+            ? { ...item, cantidad: action.payload.cantidad }
             : item
         ),
       };
@@ -42,7 +31,7 @@ const cartReducer = (state, action) => {
     case 'CALCULATE_TOTAL':
       return {
         ...state,
-        total: state.items.reduce((total, item) => total + item.price * item.quantity, 0),
+        total: state.items.reduce((total, item) => total + item.price * item.cantidad, 0),
       };
     default:
       return state;
@@ -52,6 +41,29 @@ const cartReducer = (state, action) => {
 const ShoppingCart = () => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
   const [isModalVisible, setIsModalVisible] = useState(false); 
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    const fetchCartItems = async () => {
+      try {
+        const cartRef = collection(db, 'carrito');
+        const cartSnapshot = await getDocs(cartRef);
+        const cartData = cartSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+        setCartItems(cartData);
+        
+        cartData.forEach(item => {
+          dispatch({
+            type: 'ADD_QUANTITY',
+            payload: { id: item.id, cantidad: item.cantidad || 1 },
+          });
+        });
+      } catch (error) {
+        console.error("Error al obtener los productos del carrito:", error);
+      }
+    };
+
+    fetchCartItems();
+  }, []);
 
   useEffect(() => {
     dispatch({ type: 'CALCULATE_TOTAL' });
@@ -65,14 +77,25 @@ const ShoppingCart = () => {
     dispatch({ type: 'REMOVE_ITEM', payload: { id: itemId } });
   };
 
-  const renderItem = ({ item }) => (
-    <ItemCard
-      item={item}
-      onFavoriteToggle={handleFavoriteToggle}
-      onRemoveItem={handleRemoveItem}
-      showRemoveButton={true}  
-    />
-  );
+  const handleIncreaseQuantity = (itemId) => {
+    const item = cartItems.find((item) => item.id === itemId);
+    if (item) {
+      dispatch({
+        type: 'ADD_QUANTITY',
+        payload: { id: itemId, cantidad: item.cantidad + 1 },
+      });
+    }
+  };
+
+  const handleDecreaseQuantity = (itemId) => {
+    const item = cartItems.find((item) => item.id === itemId);
+    if (item && item.cantidad > 1) {
+      dispatch({
+        type: 'ADD_QUANTITY',
+        payload: { id: itemId, cantidad: item.cantidad - 1 },
+      });
+    }
+  };
 
   const openPaymentModal = () => {
     setIsModalVisible(true);
@@ -86,19 +109,27 @@ const ShoppingCart = () => {
     <View style={styles.container}>
       <Text style={styles.title}>Carrito de Compras</Text>
 
-      {state.items.length === 0 ? (
+      {cartItems.length === 0 ? (
         <Text style={styles.emptyMessage}>El carrito está vacío.</Text>
       ) : (
         <FlatList
-          data={state.items}
-          renderItem={renderItem}
+          data={cartItems}
+          renderItem={({ item }) => (
+            <ItemShoppingCard 
+              item={item}
+              onFavoriteToggle={handleFavoriteToggle}
+              onRemoveItem={handleRemoveItem}
+              onIncrease={handleIncreaseQuantity}
+              onDecrease={handleDecreaseQuantity}
+            />
+          )}
           keyExtractor={(item) => item.id}
         />
       )}
 
-      <Text style={styles.total}>Valor Total: ${state.total}</Text>
+      <Text style={styles.total}>Valor Total: ${state.total.toFixed(2)}</Text>
 
-      <Button title="Proceder al Pago" onPress={openPaymentModal} />
+      <Button title="Proceder al Pago" onPress={openPaymentModal} /> 
 
       <Modal 
         isVisible={isModalVisible}
@@ -110,7 +141,7 @@ const ShoppingCart = () => {
         <View style={{ flex: 1 }}>
           <PaymentBranch 
             closeModal={closePaymentModal} 
-            items={state.items}
+            items={cartItems}  
             total={state.total} 
           />
         </View>

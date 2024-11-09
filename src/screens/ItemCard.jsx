@@ -1,28 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, Pressable, Modal, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { doc, updateDoc, setDoc, deleteDoc } from 'firebase/firestore';
+import { doc, updateDoc, setDoc, deleteDoc, getDoc } from 'firebase/firestore';
 import { db } from '../database/firebase';
-import styles from '../styles/ItemListStyles';
+import styles from '../styles/ItemCardStyles';
 import ItemDetails from './ItemDetails';
 
-const ItemCard = ({ item, onFavoriteToggle, onRemoveItem, showRemoveButton }) => {
+const ItemCard = ({ item, onFavoriteToggle }) => {
   const [isFavorite, setIsFavorite] = useState(item.favorite);
   const [modalVisible, setModalVisible] = useState(false);
 
-  useEffect(() => {
-    // Verificar si el producto debe eliminarse de favoritos cuando el componente se monte
-    const checkIfFavorite = async () => {
-      if (item.favorite === false) {
-        // Eliminar de la tabla favoritos si el producto tiene favorite = false
-        const favoriteRef = doc(db, 'favoritos', item.id);
-        await deleteDoc(favoriteRef);
-      }
-    };
-
-    // Llamar a checkIfFavorite cuando el estado de 'isFavorite' cambie
-    checkIfFavorite();
-  }, [item.favorite]);  // Dependencia de item.favorite
+  // Dependencia de item.favorite
 
   const handleFavoriteToggle = async () => {
     const newFavoriteStatus = !isFavorite;
@@ -48,9 +36,37 @@ const ItemCard = ({ item, onFavoriteToggle, onRemoveItem, showRemoveButton }) =>
       setIsFavorite(isFavorite);  // Si ocurre un error, revertir el estado
     }
   };
-  
+
   const discountedPrice = item.offer > 0 ? item.price * (1 - item.offer / 100) : null;
   const isOutOfStock = item.available === 0;
+
+  const handleAddToCart = async () => {
+    try {
+      // Verificar si el producto ya está en el carrito
+      const cartRef = doc(db, 'carrito', item.id);
+      const cartDoc = await getDoc(cartRef);
+
+      if (cartDoc.exists()) {
+        // Si el producto ya está en el carrito, incrementar la cantidad
+        const currentQuantity = cartDoc.data().cantidad || 0;
+        await updateDoc(cartRef, { cantidad: currentQuantity + 1 });
+      } else {
+        // Si el producto no está en el carrito, agregarlo
+        const cartItem = {
+          id: item.id,
+          image: item.image,
+          longDescription: item.longDescription,
+          name: item.name,
+          price: item.price,
+          shortDescription: item.shortDescription,
+          cantidad: 1,  // Inicializar la cantidad en 1
+        };
+        await setDoc(cartRef, cartItem);
+      }
+    } catch (error) {
+      console.error("Error al agregar al carrito:", error);
+    }
+  };
 
   return (
     <View style={styles.itemContainer}>
@@ -76,6 +92,10 @@ const ItemCard = ({ item, onFavoriteToggle, onRemoveItem, showRemoveButton }) =>
       </Pressable>
 
       {isOutOfStock && <Text style={styles.outOfStockText}>Agotado</Text>}
+
+      <Pressable onPress={handleAddToCart} style={styles.addToCartButton}>
+        <Text style={styles.addToCartText}>Agregar al carrito</Text>
+      </Pressable>
 
       <Modal
         animationType="slide"
