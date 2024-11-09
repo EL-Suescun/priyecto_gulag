@@ -178,12 +178,12 @@ const ItemList = () => {
         renderItem={({ item }) => (
           <ItemCard 
             item={item} 
-            onFavoriteToggle={handleFavoriteToggle} // Pasar la función para actualizar el favorito
+            onFavoriteToggle={handleFavoriteToggle} 
           />
         )}
         keyExtractor={(item) => item.id}
         ListEmptyComponent={<Text style={styles.emptyText}>No se encontraron artículos</Text>}
-        contentContainerStyle={{ paddingBottom: 20 }} // Añadir algo de espacio al final
+        contentContainerStyle={{ paddingBottom: 20 }} 
       />
     </View>
   );

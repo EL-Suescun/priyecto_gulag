@@ -15,14 +15,12 @@ const CountrySelect = ({ country, setCountry, department, setDepartment, city, s
       <Picker selectedValue={department} onValueChange={(value) => setDepartment(value)}>
         <Picker.Item label="Antioquia" value="Antioquia" />
         <Picker.Item label="Bogotá" value="Bogotá" />
-        {/* Agrega más departamentos según sea necesario */}
       </Picker>
 
       <Text>Ciudad</Text>
       <Picker selectedValue={city} onValueChange={(value) => setCity(value)}>
         <Picker.Item label="Medellín" value="Medellín" />
         <Picker.Item label="Bogotá" value="Bogotá" />
-        {/* Agrega más ciudades según el departamento seleccionado */}
       </Picker>
     </View>
   );

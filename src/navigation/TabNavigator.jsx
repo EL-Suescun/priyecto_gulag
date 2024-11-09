@@ -21,11 +21,11 @@ const TabNavigator = () => {
           ),
           headerBackgroundContainerStyle: styles.headerBackgroundContainerStyle,
           headerTitleStyle: styles.headerTitle,
-          tabBarActiveTintColor: "#E5E8E8", // Color de ítem activo
-          tabBarInactiveTintColor: "#AAB7B8", // Color de ítem inactivo
+          tabBarActiveTintColor: "#E5E8E8", 
+          tabBarInactiveTintColor: "#AAB7B8", 
           tabBarStyle: styles.tabBarStyle,
-          tabBarLabelStyle: styles.tabBarLabelStyle, // Estilo para las etiquetas
-          tabBarItemStyle: styles.tabBarItemStyle, // Estilo para el ítem
+          tabBarLabelStyle: styles.tabBarLabelStyle, 
+          tabBarItemStyle: styles.tabBarItemStyle,
         }}
       >
         <Tab.Screen

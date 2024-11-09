@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Alert, Platform, Pressable } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useNavigation } from "@react-navigation/native";
-import styles from "../styles/RegisterStyles"; // Asegúrate de que esta ruta es correcta
-import CountrySelect from '../components/CountrySelect'; // Verifica que este componente esté correctamente implementado
+import styles from "../styles/RegisterStyles"; 
+import CountrySelect from '../components/CountrySelect'; 
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const Register = () => {
@@ -58,17 +58,16 @@ const Register = () => {
       return;
     }
 
-    // Lógica de registro aquí (ej. llamada a API)
     Alert.alert('Registro Exitoso', 'Ahora puedes iniciar sesión.');
     navigation.navigate('Login');
   };
 
   const onDateChange = (event, selectedDate) => {
-    if (event.type === 'set') { // Asegúrate de que se ha seleccionado una fecha
+    if (event.type === 'set') { 
       setShowDatePicker(false);
-      setBirthDate(selectedDate.toISOString().split('T')[0]); // Formato YYYY-MM-DD
+      setBirthDate(selectedDate.toISOString().split('T')[0]); 
     } else {
-      setShowDatePicker(false); // Cierra el selector si se cancela
+      setShowDatePicker(false); 
     }
   };
 

@@ -2,11 +2,10 @@ import React from 'react';
 import { View, Text, FlatList, Image } from 'react-native';
 import styles from '../styles/MyPurchasesStyles';
 
-// Ejemplo de datos de compras
 const examplePurchases = [
   {
     id: 1,
-    image: 'https://via.placeholder.com/150', // URL de imagen de muestra
+    image: 'https://via.placeholder.com/150', 
     description: 'Producto 1 - Descripción del producto de muestra',
     status: 'En tránsito',
   },
@@ -29,7 +28,6 @@ const MyPurchases = ({ purchases = examplePurchases }) => {
     <View style={styles.container}>
       <Text style={styles.title}>Mis Compras</Text>
 
-      {/* Listado de compras */}
       <FlatList
         data={purchases}
         keyExtractor={(item) => item.id.toString()}

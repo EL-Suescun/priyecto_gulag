@@ -17,11 +17,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#212f3d",
   },
   tabBarLabelStyle: {
-    fontSize: 12, // Tamaño de las etiquetas de los ítems
-    fontWeight: "bold", // Etiquetas más destacadas
+    fontSize: 12, 
+    fontWeight: "bold", 
   },
   tabBarItemStyle: {
-    // Puedes agregar padding o márgenes si quieres ajustar la apariencia de los ítems
     paddingTop: 5,
     paddingBottom: 5,
   },

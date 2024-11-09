@@ -47,7 +47,6 @@ const ItemCard = ({ item, onFavoriteToggle, onRemoveItem, showRemoveButton }) =>
         </Pressable>
       )}
 
-      {/* Modal para mostrar los detalles del producto */}
       <Modal
         animationType="slide"
         transparent={true}

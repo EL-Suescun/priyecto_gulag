@@ -1,8 +1,8 @@
 import React, { useReducer, useEffect, useState } from 'react';
 import { View, Text, FlatList, Button, Alert } from 'react-native';
-import ItemCard from './ItemCard'; // Importa el componente ItemCard
-import PaymentBranch from './PaymentBranch'; // Importa el componente PaymentBranch
-import Modal from 'react-native-modal'; // Importa la librería de modal
+import ItemCard from './ItemCard'; 
+import PaymentBranch from './PaymentBranch'; 
+import Modal from 'react-native-modal'; 
 import styles from '../styles/ShoppingCartStyles';
 
 const initialState = {

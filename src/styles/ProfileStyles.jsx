@@ -10,13 +10,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: '700',
-    marginBottom: 30, // Aumentado para mayor separación
+    marginBottom: 30,
     color: '#2c3e50',
     textAlign: 'center',
   },
   card: {
     width: '100%',
-    padding: 30, // Aumentado para más espacio dentro de la tarjeta
+    padding: 30, 
     borderRadius: 10,
     backgroundColor: '#fff',
     shadowColor: '#000',
@@ -33,19 +33,19 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     borderRadius: 60,
-    marginBottom: 25, // Aumentado para mayor separación
+    marginBottom: 25, 
     borderWidth: 3,
     borderColor: '#008CBA',
     backgroundColor: '#e0e0e0',
   },
   label: {
     fontSize: 18,
-    marginVertical: 10, // Aumentado para mayor separación
+    marginVertical: 10,
     color: '#34495e',
   },
   modalContainer: {
     flex: 1,
-    padding: 30, // Aumentado para más espacio en el modal
+    padding: 30, 
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   modalTitle: {
     fontSize: 26,
     fontWeight: 'bold',
-    marginBottom: 30, // Aumentado para mayor separación
+    marginBottom: 30,
     color: '#333',
   },
   input: {
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,
-    marginBottom: 20, // Aumentado para mayor separación
+    marginBottom: 20, 
     width: '100%',
     backgroundColor: '#f8f8f8',
   },
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
-    marginTop: 20, // Aumentado para mayor separación
+    marginTop: 20,
   },
 });
 

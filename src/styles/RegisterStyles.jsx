@@ -30,8 +30,8 @@ const styles = StyleSheet.create({
   },
   passwordInput: {
     flex: 1,
-    padding: 0, // Eliminamos el padding para que se alinee mejor
-    marginRight: 8, // Espacio entre el input y el icono
+    padding: 0, 
+    marginRight: 8,
   },
   dateLabel: {
     marginVertical: 8,

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, FlatList, Image } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome'; // Importar el ícono
+import Icon from 'react-native-vector-icons/FontAwesome'; 
 import styles from '../styles/MyFavoritesStyles';
 
-// Ejemplo de datos de favoritos
+
 const exampleFavorites = [
   {
     id: 1,

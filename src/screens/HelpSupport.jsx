@@ -12,9 +12,7 @@ const HelpSupport = () => {
       Alert.alert("Error", "La descripción no puede exceder 300 caracteres.");
       return;
     }
-    // Aquí puedes agregar la lógica para enviar la solicitud
     Alert.alert("Éxito", "Solicitud enviada con éxito.");
-    // Reiniciar campos
     setDescription('');
   };
 
@@ -22,7 +20,6 @@ const HelpSupport = () => {
     <View style={styles.container}>
       <Text style={styles.title}>Ayuda y Soporte</Text>
 
-      {/* Selector de tipo de solicitud */}
       <Text style={styles.label}>Tipo de Solicitud:</Text>
       <Picker
         selectedValue={requestType}
@@ -34,7 +31,6 @@ const HelpSupport = () => {
         <Picker.Item label="Recurso" value="recurso" />
       </Picker>
 
-      {/* Descripción de la solicitud */}
       <Text style={styles.label}>Descripción de la Solicitud:</Text>
       <TextInput
         style={styles.textInput}
@@ -44,14 +40,13 @@ const HelpSupport = () => {
         multiline
         numberOfLines={4}
         placeholder="Escriba aquí su solicitud..."
-        placeholderTextColor="#999" // Cambiar color del placeholder
+        placeholderTextColor="#999" 
       />
 
-      {/* Botón de enviar */}
       <Button 
         title="Enviar"
         onPress={handleSubmit}
-        color="#007BFF" // Color personalizado del botón
+        color="#007BFF" 
       />
     </View>
   );
