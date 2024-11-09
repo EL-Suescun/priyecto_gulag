@@ -12,7 +12,6 @@ const firebaseConfig = {
   appId: "1:12936543245:web:599589cacb04a5cbd76944"
 };
 
-// Inicializa Firebase solo si no está inicializado
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
 // Inicializa Firestore y Auth

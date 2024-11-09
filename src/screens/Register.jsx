@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert, Platform, Pressable } from 'react-native';
+import { View, Text, TextInput, Alert, Pressable, ActivityIndicator } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useNavigation } from "@react-navigation/native";
 import styles from "../styles/RegisterStyles"; 
 import CountrySelect from '../components/CountrySelect'; 
 import Icon from 'react-native-vector-icons/Ionicons';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+import app from "../database/firebaseAuth";
+
+const auth = getAuth(app);
+const db = getFirestore(app);
 
 const Register = () => {
   const navigation = useNavigation();
@@ -15,12 +21,13 @@ const Register = () => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [address, setAddress] = useState('');
   const [country, setCountry] = useState('Colombia');
-  const [department, setDepartment] = useState('');
-  const [city, setCity] = useState('');
+  const [department, setDepartment] = useState('Antioquia');
+  const [city, setCity] = useState('Medellin');
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); 
 
   const validatePassword = (password) => {
-    const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8}$/;
+    const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,8}$/;
     return regex.test(password);
   };
 
@@ -36,13 +43,13 @@ const Register = () => {
     return age >= 18 && age <= 50;
   };
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (username.length > 10) {
       Alert.alert('Error', 'El nombre de usuario no debe exceder los 10 caracteres.');
       return;
     }
     if (!validatePassword(password)) {
-      Alert.alert('Error', 'La contraseña debe tener 8 caracteres, incluyendo una mayúscula, un número y un caracter especial.');
+      Alert.alert('Error', 'La contraseña debe tener entre 6 y 8 caracteres, incluyendo una mayúscula, un número y un caracter especial.');
       return;
     }
     if (!validateEmail(email)) {
@@ -58,8 +65,31 @@ const Register = () => {
       return;
     }
 
-    Alert.alert('Registro Exitoso', 'Ahora puedes iniciar sesión.');
-    navigation.navigate('Login');
+    setIsLoading(true); 
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      await addDoc(collection(db, "users"), {
+        uid: user.uid,
+        username: username,
+        email: email,
+        birthDate: birthDate,
+        address: address,
+        country: country,
+        department: department,
+        city: city
+      });
+
+      Alert.alert('Registro Exitoso', 'Ahora puedes iniciar sesión.');
+      navigation.navigate('Login');
+    } catch (error) {
+      Alert.alert('Error en el registro', 'No se pudo crear la cuenta.');
+      console.log(error);
+    } finally {
+      setIsLoading(false); 
+    }
   };
 
   const onDateChange = (event, selectedDate) => {
@@ -83,6 +113,14 @@ const Register = () => {
         style={styles.input}
       />
 
+      <TextInput
+        placeholder="Correo"
+        value={email}
+        onChangeText={setEmail}
+        keyboardType="email-address"
+        style={styles.input}
+      />
+
       <View style={styles.passwordContainer}>
         <TextInput
           placeholder="Contraseña"
@@ -96,14 +134,6 @@ const Register = () => {
           <Icon name={showPassword ? "eye-off" : "eye"} size={24} color="#000" />
         </Pressable>
       </View>
-
-      <TextInput
-        placeholder="Correo"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        style={styles.input}
-      />
 
       <Text style={styles.dateLabel}>Selecciona tu fecha de nacimiento:</Text>
       <Pressable style={styles.dateButton} onPress={() => setShowDatePicker(true)}>
@@ -137,10 +167,12 @@ const Register = () => {
         city={city} 
         setCity={setCity} 
       />
-
-      <Pressable style={styles.registerButton} onPress={handleRegister}>
+      {isLoading && <ActivityIndicator size="large" color="#0000ff" />} 
+      <Pressable style={styles.registerButton} onPress={handleRegister} disabled={isLoading}>
         <Text style={styles.registerButtonText}>Registrar</Text>
       </Pressable>
+
+     
     </View>
   );
 };
