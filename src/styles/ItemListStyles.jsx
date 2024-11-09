@@ -172,9 +172,7 @@ const styles = StyleSheet.create({
     height: 150,
     marginBottom: 10,
   },
-  // modalScrollView: {
-  //   maxHeight: '70%',
-  // },
+  
 });
 
 export default styles;
