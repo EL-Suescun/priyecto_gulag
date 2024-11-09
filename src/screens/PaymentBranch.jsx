@@ -6,9 +6,8 @@ import styles from '../styles/PaymentBranchStyles';
 const PaymentBranch = ({ items, total, closeModal }) => {
   const [address, setAddress] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('');
-  const [cartItems, setCartItems] = useState(items); // Aquí estamos guardando los items del carrito
+  const [cartItems, setCartItems] = useState(items);
 
-  // Función para actualizar la cantidad de un artículo en el carrito
   const updateQuantity = (id, quantity) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
@@ -38,7 +37,6 @@ const PaymentBranch = ({ items, total, closeModal }) => {
         <Text style={styles.itemDescription}>{item.shortDescription}</Text>
         <Text style={styles.itemPrice}>${item.price * item.quantity}</Text>
       </View>
-      {/* Aquí añadimos los controles para aumentar y disminuir la cantidad */}
       <View style={styles.quantityContainer}>
         <Button title="-" onPress={() => updateQuantity(item.id, item.quantity - 1)} />
         <Text>{item.quantity}</Text>

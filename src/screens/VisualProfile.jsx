@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Modal, TouchableOpacity } from 'react-native';
-import styles from '../styles/VisualProfileStyles'; // Importamos el archivo de estilos
+import styles from '../styles/VisualProfileStyles';
 
 const VisualProfile = () => {
   const [name, setName] = useState('Juan');
@@ -48,8 +48,6 @@ const VisualProfile = () => {
       <TouchableOpacity style={styles.button} onPress={handleOpenModal}>
         <Text style={styles.buttonText}>Actualizar Perfil</Text>
       </TouchableOpacity>
-
-      {/* Modal para actualizar datos */}
       <Modal
         visible={isModalVisible}
         animationType="slide"

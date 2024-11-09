@@ -69,10 +69,10 @@ const itemShoppingCardStyles = StyleSheet.create({
     marginLeft: 10,
   },
   buttonIcon: {
-    marginHorizontal: 10, // Aumentamos el margen entre los botones
-    padding: 10,          // Agregamos padding para mejorar el clic
-    borderRadius: 50,     // Hacemos los botones redondeados
-    backgroundColor: '#ff6347', // Color de fondo para resaltar los botones
+    marginHorizontal: 10,
+    padding: 10,         
+    borderRadius: 50,    
+    backgroundColor: '#ff6347',
   },
   removeItem: {
     color: '#ff6347',

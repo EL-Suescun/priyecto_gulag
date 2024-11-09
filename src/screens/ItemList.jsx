@@ -4,14 +4,13 @@ import { getDocs, collection } from 'firebase/firestore';
 import { db } from '../database/firebase';
 import ItemCard from './ItemCard';
 import styles from '../styles/ItemListStyles';
-import { useFocusEffect } from '@react-navigation/native';  // Importamos useFocusEffect
+import { useFocusEffect } from '@react-navigation/native';  
 
 const ItemList = () => {
   const [searchText, setSearchText] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [items, setItems] = useState([]);
 
-  // Usar useFocusEffect para recargar los datos cada vez que la pantalla se enfoque
   useFocusEffect(
     React.useCallback(() => {
       fetchItems();

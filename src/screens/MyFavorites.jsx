@@ -8,19 +8,17 @@ import { db } from '../database/firebase';
 const MyFavorites = () => {
   const [items, setItems] = useState([]);
 
-  // Cargar los productos favoritos de Firestore
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, 'productos')); // Cambié 'favoritos' a 'productos'
+        const querySnapshot = await getDocs(collection(db, 'productos'));
         const fetchedItems = querySnapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data(),
         }));
 
-        // Filtrar solo los productos con 'favorite' en true
         const favoriteItems = fetchedItems.filter(item => item.favorite === true);
-        setItems(favoriteItems);  // Establecer solo los favoritos en el estado
+        setItems(favoriteItems); 
       } catch (error) {
         console.error("Error al cargar los productos favoritos:", error);
       }
@@ -30,7 +28,6 @@ const MyFavorites = () => {
   }, []);
 
   const handleFavoriteToggle = async (id) => {
-    // Cambiar el estado de favorito en la lista
     const updatedItems = items.map(item =>
       item.id === id ? { ...item, favorite: !item.favorite } : item
     );
@@ -38,12 +35,10 @@ const MyFavorites = () => {
 
     const item = updatedItems.find(item => item.id === id);
     try {
-      const itemRef = doc(db, 'productos', id); // Cambié 'favoritos' a 'productos'
+      const itemRef = doc(db, 'productos', id); 
       if (item.favorite) {
-        // Si el producto es favorito, eliminarlo de la colección 'productos'
         await deleteDoc(itemRef);
       } else {
-        // Si el producto no es favorito, agregarlo a la colección 'productos'
         await setDoc(itemRef, item);
       }
     } catch (error) {
@@ -63,7 +58,7 @@ const MyFavorites = () => {
     <View style={styles.container}>
       <Text style={styles.title}>Mis Productos Favoritos</Text>
       <FlatList
-        data={items}  // Usar solo los productos favoritos
+        data={items} 
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />

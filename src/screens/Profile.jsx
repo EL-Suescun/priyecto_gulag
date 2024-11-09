@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, Image, Alert, Pressable } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { Ionicons } from '@expo/vector-icons'; // Asegúrate de tener esta librería instalada
-import styles from '../styles/ProfileStyles'; // Asegúrate de tener tus estilos definidos
-import VisualProfile from './VisualProfile'; // Importa VisualProfile
-import MyPurchases from './MyPurchases'; // Importa MyPurchases
-import MyFavorites from './MyFavorites'; // Importa MyFavorites
+import { Ionicons } from '@expo/vector-icons'; 
+import styles from '../styles/ProfileStyles'; 
+import VisualProfile from './VisualProfile'; 
+import MyPurchases from './MyPurchases'; 
+import MyFavorites from './MyFavorites'; 
 
 const exampleUser = {
   firstName: 'Juan',
@@ -16,10 +16,9 @@ const exampleUser = {
 
 const Profile = ({ user = exampleUser }) => {
   const [selectedImage, setSelectedImage] = useState(user.photo);
-  const [showVisualProfile, setShowVisualProfile] = useState(false); // Estado para mostrar VisualProfile
-  const [currentScreen, setCurrentScreen] = useState('profile'); // Estado para gestionar qué pantalla mostrar
+  const [showVisualProfile, setShowVisualProfile] = useState(false);
+  const [currentScreen, setCurrentScreen] = useState('profile'); 
 
-  // Función para seleccionar una nueva imagen
   const pickImage = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (permissionResult.granted === false) {
@@ -33,20 +32,17 @@ const Profile = ({ user = exampleUser }) => {
     }
   };
 
-  // Función para manejar el clic en el botón de "Perfil"
   const handleProfileClick = () => {
-    setShowVisualProfile(!showVisualProfile); // Cambia el estado para mostrar u ocultar VisualProfile
-    setCurrentScreen('profile'); // Cambia la pantalla actual a 'profile'
+    setShowVisualProfile(!showVisualProfile);
+    setCurrentScreen('profile'); 
   };
 
-  // Función para manejar el clic en el botón de "Mis compras"
   const handleMyPurchasesClick = () => {
-    setCurrentScreen('myPurchases'); // Cambia la pantalla actual a 'myPurchases'
+    setCurrentScreen('myPurchases'); 
   };
 
-  // Función para manejar el clic en el botón de "Favoritos"
   const handleMyFavoritesClick = () => {
-    setCurrentScreen('myFavorites'); // Cambia la pantalla actual a 'myFavorites'
+    setCurrentScreen('myFavorites'); 
   };
 
   return (
@@ -77,10 +73,8 @@ const Profile = ({ user = exampleUser }) => {
       </View>
 
       <View style={styles.cardScreen}>
-        {/* Mostrar la pantalla correspondiente según el estado 'currentScreen' */}
         {currentScreen === 'profile' && (
           <>
-            {/* Muestra VisualProfile debajo de los botones si el estado 'showVisualProfile' es verdadero */}
             {showVisualProfile && <VisualProfile user={user} />}
           </>
         )}

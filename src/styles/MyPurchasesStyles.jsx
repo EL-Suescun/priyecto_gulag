@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     padding: 20,
-    backgroundColor: '#f0f4f8',  // Coloca un color de fondo similar al de Profile
+    backgroundColor: '#f0f4f8', 
   },
   title: {
     fontSize: 28,

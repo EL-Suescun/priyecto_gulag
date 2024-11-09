@@ -15,7 +15,7 @@ const itemCardStyles = StyleSheet.create({
     elevation: 4,
     borderLeftWidth: 5,
     borderLeftColor: '#ff6347',
-    position: 'relative', // Contexto de posición para el ícono del corazón
+    position: 'relative', 
   },
   thumbnail: {
     width: 50,
@@ -25,7 +25,7 @@ const itemCardStyles = StyleSheet.create({
   },
   itemDetails: {
     flex: 1,
-    paddingRight: 40, // Espacio adicional para el ícono del corazón
+    paddingRight: 40, 
   },
   itemName: {
     fontSize: 18,
@@ -57,7 +57,7 @@ const itemCardStyles = StyleSheet.create({
     position: 'absolute',
     top: 10,
     right: 10,
-    zIndex: 1,  // Asegura que el ícono esté encima de otros elementos si es necesario
+    zIndex: 1,  
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,

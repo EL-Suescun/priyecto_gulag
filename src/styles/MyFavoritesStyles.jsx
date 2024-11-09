@@ -5,13 +5,13 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     padding: 20,
-    backgroundColor: '#f0f4f8',  // Fondo similar al de Profile
+    backgroundColor: '#f0f4f8', 
   },
   title: {
     fontSize: 28,
-    fontWeight: '700',  // Alineado con el estilo de Profile
+    fontWeight: '700',  
     marginBottom: 30,
-    color: '#2c3e50',  // Color de texto similar al de Profile
+    color: '#2c3e50',  
     textAlign: 'center',
   },
   purchaseItem: {
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 3,
     marginBottom: 15,
-    width: '100%', // Ocupa todo el ancho disponible
+    width: '100%', 
   },
   image: {
     width: 70,

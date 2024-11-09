@@ -116,12 +116,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 
-  // Estilos actualizados para preguntas, comentarios y estrellas:
 
   ratingContainer: {
-    flexDirection: 'row', // Alineación horizontal
+    flexDirection: 'row', 
     justifyContent: 'flex-start',
-    marginBottom: 15, // Espaciado debajo de las estrellas
+    marginBottom: 15, 
   },
 
   input: {
@@ -129,7 +128,7 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius: 8,
     padding: 10,
-    marginBottom: 15,  // Espacio debajo de cada cuadro de texto
+    marginBottom: 15,  
     backgroundColor: '#fff',
     fontSize: 16,
   },

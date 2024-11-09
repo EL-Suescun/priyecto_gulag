@@ -10,30 +10,26 @@ const ItemCard = ({ item, onFavoriteToggle }) => {
   const [isFavorite, setIsFavorite] = useState(item.favorite);
   const [modalVisible, setModalVisible] = useState(false);
 
-  // Dependencia de item.favorite
 
   const handleFavoriteToggle = async () => {
     const newFavoriteStatus = !isFavorite;
     setIsFavorite(newFavoriteStatus);
-    onFavoriteToggle(item.id);  // Llamar a la función que se pasa como prop
-
+    onFavoriteToggle(item.id);  
     try {
-      const itemRef = doc(db, 'productos', item.id);  // Referencia con el id de Firestore
+      const itemRef = doc(db, 'productos', item.id);  
       await updateDoc(itemRef, { favorite: newFavoriteStatus });
 
-      // Si el producto se marca como favorito, agrégalo a la colección 'favoritos'
       if (newFavoriteStatus) {
-        const favoriteRef = doc(db, 'favoritos', item.id);  // Usa el id del producto
-        const favoriteItem = { ...item, favorite: true };  // Asegurarse de que el campo favorite esté en true
-        await setDoc(favoriteRef, favoriteItem);  // Agregar el producto completo a la colección favoritos
+        const favoriteRef = doc(db, 'favoritos', item.id); 
+        const favoriteItem = { ...item, favorite: true };  
+        await setDoc(favoriteRef, favoriteItem);  
       } else {
-        // Si se desmarca como favorito, elimínalo de la colección 'favoritos'
         const favoriteRef = doc(db, 'favoritos', item.id);
-        await deleteDoc(favoriteRef);  // Eliminar el producto de la colección favoritos
+        await deleteDoc(favoriteRef);  
       }
     } catch (error) {
       console.error("Error al actualizar el estado de favorito:", error);
-      setIsFavorite(isFavorite);  // Si ocurre un error, revertir el estado
+      setIsFavorite(isFavorite);  
     }
   };
 
@@ -42,16 +38,13 @@ const ItemCard = ({ item, onFavoriteToggle }) => {
 
   const handleAddToCart = async () => {
     try {
-      // Verificar si el producto ya está en el carrito
       const cartRef = doc(db, 'carrito', item.id);
       const cartDoc = await getDoc(cartRef);
 
       if (cartDoc.exists()) {
-        // Si el producto ya está en el carrito, incrementar la cantidad
         const currentQuantity = cartDoc.data().cantidad || 0;
         await updateDoc(cartRef, { cantidad: currentQuantity + 1 });
       } else {
-        // Si el producto no está en el carrito, agregarlo
         const cartItem = {
           id: item.id,
           image: item.image,
@@ -59,7 +52,7 @@ const ItemCard = ({ item, onFavoriteToggle }) => {
           name: item.name,
           price: item.price,
           shortDescription: item.shortDescription,
-          cantidad: 1,  // Inicializar la cantidad en 1
+          cantidad: 1,  
         };
         await setDoc(cartRef, cartItem);
       }
