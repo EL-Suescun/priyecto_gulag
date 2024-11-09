@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Modal } from 'react-native';
+import { View, Text, TextInput, Button, Modal, TouchableOpacity } from 'react-native';
 import styles from '../styles/VisualProfileStyles'; // Importamos el archivo de estilos
 
 const VisualProfile = () => {
@@ -45,7 +45,9 @@ const VisualProfile = () => {
         <Text style={styles.label}>Fecha de Nacimiento: {birthDate}</Text>
       </View>
 
-      <Button title="Actualizar Perfil" onPress={handleOpenModal} />
+      <TouchableOpacity style={styles.button} onPress={handleOpenModal}>
+        <Text style={styles.buttonText}>Actualizar Perfil</Text>
+      </TouchableOpacity>
 
       {/* Modal para actualizar datos */}
       <Modal
@@ -54,29 +56,36 @@ const VisualProfile = () => {
         onRequestClose={handleCloseModal}
       >
         <View style={styles.modalContainer}>
-          <Text style={styles.modalTitle}>Actualizar Perfil</Text>
+          <View style={styles.modalInnerContainer}>
+            <Text style={styles.modalTitle}>Actualizar Perfil</Text>
 
-          <TextInput
-            style={styles.input}
-            placeholder="Nombre"
-            value={newName}
-            onChangeText={setNewName}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Apellido"
-            value={newSurname}
-            onChangeText={setNewSurname}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Fecha de Nacimiento (DD/MM/AAAA)"
-            value={newBirthDate}
-            onChangeText={setNewBirthDate}
-          />
+            <TextInput
+              style={styles.input}
+              placeholder="Nombre"
+              value={newName}
+              onChangeText={setNewName}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Apellido"
+              value={newSurname}
+              onChangeText={setNewSurname}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Fecha de Nacimiento (DD/MM/AAAA)"
+              value={newBirthDate}
+              onChangeText={setNewBirthDate}
+            />
 
-          <Button title="Guardar" onPress={handleUpdateProfile} />
-          <Button title="Cancelar" onPress={handleCloseModal} />
+            <TouchableOpacity style={styles.button} onPress={handleUpdateProfile}>
+              <Text style={styles.buttonText}>Guardar</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={[styles.button, styles.cancelButton]} onPress={handleCloseModal}>
+              <Text style={styles.buttonText}>Cancelar</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </Modal>
     </View>
