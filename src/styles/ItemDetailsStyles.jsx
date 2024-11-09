@@ -115,63 +115,49 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 20,
   },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+
+  // Estilos actualizados para preguntas, comentarios y estrellas:
+
+  ratingContainer: {
+    flexDirection: 'row', // Alineación horizontal
+    justifyContent: 'flex-start',
+    marginBottom: 15, // Espaciado debajo de las estrellas
   },
-  modalContent: {
-    width: '90%',
-    padding: 25,
-    backgroundColor: 'white',
-    borderRadius: 15,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
-    elevation: 10,
-  },
-  modalImage: {
-    width: '100%',
-    height: 250,
-    borderRadius: 15,
-    marginBottom: 20,
-  },
-  modalTitle: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 10,
-  },
-  modalDescription: {
+
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 15,  // Espacio debajo de cada cuadro de texto
+    backgroundColor: '#fff',
     fontSize: 16,
-    color: '#555',
-    marginBottom: 10,
-    textAlign: 'center',
   },
-  modalPrice: {
-    fontSize: 20,
+
+  section: {
+    marginBottom: 25,
+  },
+
+  question: {
+    fontSize: 16,
+    color: '#333',
+    marginBottom: 5,
+  },
+
+  commentContainer: {
+    marginBottom: 15,
+  },
+
+  commentRating: {
+    fontSize: 16,
     fontWeight: 'bold',
     color: '#ff6347',
-    marginBottom: 10,
   },
-  modalQuantity: {
-    fontSize: 18,
-    marginBottom: 10,
-    color: '#333',
-  },
-  modalCloseButton: {
-    backgroundColor: '#FF4C4C',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 10,
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  modalCloseButtonText: {
-    color: '#fff',
-    fontWeight: 'bold',
+
+  emptyText: {
+    fontSize: 16,
+    color: '#aaa',
+    fontStyle: 'italic',
   },
 });
 

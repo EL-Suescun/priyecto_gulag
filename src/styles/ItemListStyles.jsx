@@ -172,56 +172,9 @@ const styles = StyleSheet.create({
     height: 150,
     marginBottom: 10,
   },
-  modalTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    color: '#333',
-    textAlign: 'center',
-  },
-  modalDescription: {
-    fontSize: 16,
-    color: '#555',
-    marginBottom: 5,
-    textAlign: 'center',
-  },
-  modalLongDescription: {
-    fontSize: 14,
-    color: '#777',
-    marginBottom: 15,
-    textAlign: 'center',
-    lineHeight: 22,
-  },
-  modalPrice: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: 'green',
-    marginBottom: 5,
-  },
-  modalDiscountedPrice: {
-    fontSize: 18,
-    color: 'red',
-    fontWeight: '700',
-    marginBottom: 10,
-  },
-  modalQuantity: {
-    fontSize: 14,
-    marginTop: 10,
-    color: '#333',
-  },
-  modalAvailable: {
-    fontSize: 14,
-    marginTop: 5,
-    color: '#008000',
-  },
-  modalCategory: {
-    fontSize: 14,
-    marginTop: 5,
-    color: '#888',
-  },
-  modalScrollView: {
-    maxHeight: '70%',
-  },
+  // modalScrollView: {
+  //   maxHeight: '70%',
+  // },
 });
 
 export default styles;

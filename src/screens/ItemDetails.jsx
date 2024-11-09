@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Image, Button, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Image, Button, FlatList, TouchableOpacity, ScrollView } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import styles from '../styles/ItemDetailsStyles';
 
@@ -36,7 +36,7 @@ const ItemDetails = ({ item, onFavoriteToggle }) => {
   );
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.title}>{item.name}</Text>
       <Image source={{ uri: item.image }} style={styles.image} />
       <Text style={styles.description}>{item.description}</Text>
@@ -72,6 +72,7 @@ const ItemDetails = ({ item, onFavoriteToggle }) => {
         <View style={styles.ratingContainer}>
           {[...Array(5)].map((_, i) => renderStar(i))}
         </View>
+
         <TextInput
           style={styles.input}
           placeholder="Escribe tu comentario (máx. 200 caracteres)"
@@ -92,7 +93,7 @@ const ItemDetails = ({ item, onFavoriteToggle }) => {
           ListEmptyComponent={<Text style={styles.emptyText}>No hay comentarios</Text>}
         />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
