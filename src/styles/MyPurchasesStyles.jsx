@@ -3,15 +3,16 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: '100%',
     padding: 20,
-    backgroundColor: '#f8f8f8',
+    backgroundColor: '#f0f4f8',  // Coloca un color de fondo similar al de Profile
   },
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    color: '#333',
-    textAlign: 'center', 
+    fontWeight: '700',  // Alineado con el estilo de Profile
+    marginBottom: 30,
+    color: '#2c3e50',  // Color de texto similar al de Profile
+    textAlign: 'center',
   },
   purchaseItem: {
     flexDirection: 'row',
@@ -19,12 +20,12 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 10,
     borderRadius: 10,
-    backgroundColor: '#ffffff', 
+    backgroundColor: '#ffffff',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
-    elevation: 3, 
+    elevation: 3,
     marginBottom: 15,
   },
   image: {

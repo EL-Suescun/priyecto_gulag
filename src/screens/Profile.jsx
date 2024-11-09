@@ -1,22 +1,24 @@
 import React, { useState } from 'react';
-import { View, Text, Image, Button, Modal, TextInput, Alert, StyleSheet } from 'react-native';
+import { View, Text, Image, Alert, Pressable } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import styles from '../styles/ProfileStyles'; 
+import { Ionicons } from '@expo/vector-icons'; // Asegúrate de tener esta librería instalada
+import styles from '../styles/ProfileStyles'; // Asegúrate de tener tus estilos definidos
+import VisualProfile from './VisualProfile'; // Importa VisualProfile
+import MyPurchases from './MyPurchases'; // Importa MyPurchases
 
 const exampleUser = {
   firstName: 'Juan',
   lastName: 'Pérez',
-  birthDate: '1990-05-15', 
+  birthDate: '1990-05-15',
   photo: 'https://example.com/profile.jpg',
 };
 
 const Profile = ({ user = exampleUser }) => {
   const [selectedImage, setSelectedImage] = useState(user.photo);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [firstName, setFirstName] = useState(user.firstName);
-  const [lastName, setLastName] = useState(user.lastName);
-  const [birthDate, setBirthDate] = useState(user.birthDate);
+  const [showVisualProfile, setShowVisualProfile] = useState(false); // Estado para mostrar VisualProfile
+  const [currentScreen, setCurrentScreen] = useState('profile'); // Estado para gestionar qué pantalla mostrar
 
+  // Función para seleccionar una nueva imagen
   const pickImage = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (permissionResult.granted === false) {
@@ -30,66 +32,56 @@ const Profile = ({ user = exampleUser }) => {
     }
   };
 
-  const saveChanges = () => {
-    Alert.alert('Datos guardados', 'Tus datos han sido actualizados correctamente.');
-    setModalVisible(false);
+  // Función para manejar el clic en el botón de "Perfil"
+  const handleProfileClick = () => {
+    setShowVisualProfile(!showVisualProfile); // Cambia el estado para mostrar u ocultar VisualProfile
+    setCurrentScreen('profile'); // Cambia la pantalla actual a 'profile'
+  };
+
+  // Función para manejar el clic en el botón de "Mis compras"
+  const handleMyPurchasesClick = () => {
+    setCurrentScreen('myPurchases'); // Cambia la pantalla actual a 'myPurchases'
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Perfil</Text>
+      <Text style={styles.title}>Profile</Text>
 
       <View style={styles.card}>
-        <Image source={{ uri: selectedImage }} style={styles.photo} />
-        
-        <Button title="Cambiar Imagen de Perfil" onPress={pickImage} color="#008CBA" />
-
-        <Text style={styles.label}>Nombre: {firstName}</Text>
-        <Text style={styles.label}>Apellido: {lastName}</Text>
-        <Text style={styles.label}>
-          Fecha de Nacimiento: {formatDate(birthDate)}
-        </Text>
-
-        <Button title="Actualizar Datos" onPress={() => setModalVisible(true)} color="#28a745" />
+        <Pressable onPress={pickImage}>
+          <Image source={{ uri: selectedImage }} style={styles.photo} />
+        </Pressable>
       </View>
 
-      <Modal visible={modalVisible} animationType="slide">
-        <View style={styles.modalContainer}>
-          <Text style={styles.modalTitle}>Actualizar Perfil</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Nombre"
-            value={firstName}
-            onChangeText={setFirstName}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Apellido"
-            value={lastName}
-            onChangeText={setLastName}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Fecha de Nacimiento (DD/MM/AAAA)"
-            value={birthDate}
-            onChangeText={setBirthDate}
-          />
+      <View style={styles.buttonContainer}>
+        <Pressable style={styles.iconButton} onPress={handleProfileClick}>
+          <Ionicons name="person-outline" size={24} color="#008CBA" />
+          <Text style={styles.iconLabel}>Perfil</Text>
+        </Pressable>
 
-          <View style={styles.buttonContainer}>
-            <Button title="Guardar Cambios" onPress={saveChanges} color="#28a745" />
-            <Button title="Cancelar" onPress={() => setModalVisible(false)} color="#d9534f" />
-          </View>
-        </View>
-      </Modal>
+        <Pressable style={styles.iconButton} onPress={handleMyPurchasesClick}>
+          <Ionicons name="cart-outline" size={24} color="#008CBA" />
+          <Text style={styles.iconLabel}>Mis compras</Text>
+        </Pressable>
+
+        <Pressable style={styles.iconButton}>
+          <Ionicons name="heart-outline" size={24} color="#008CBA" />
+          <Text style={styles.iconLabel}>Favoritos</Text>
+        </Pressable>
+      </View>
+      <View style={styles.cardScreen}>
+        {/* Mostrar la pantalla correspondiente según el estado 'currentScreen' */}
+        {currentScreen === 'profile' && (
+          <>
+            {/* Muestra VisualProfile debajo de los botones si el estado 'showVisualProfile' es verdadero */}
+            {showVisualProfile && <VisualProfile user={user} />}
+          </>
+        )}
+
+        {currentScreen === 'myPurchases' && <MyPurchases user={user} />}
+      </View>
     </View>
   );
-};
-
-const formatDate = (dateString) => {
-  const date = new Date(dateString);
-  return `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1)
-    .toString()
-    .padStart(2, '0')}/${date.getFullYear()}`;
 };
 
 export default Profile;

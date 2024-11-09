@@ -21,6 +21,24 @@ const examplePurchases = [
     description: 'Producto 3 - Descripción del producto de muestra',
     status: 'Cancelado',
   },
+  {
+    id: 1,
+    image: 'https://via.placeholder.com/150', 
+    description: 'Producto 1 - Descripción del producto de muestra',
+    status: 'En tránsito',
+  },
+  {
+    id: 2,
+    image: 'https://via.placeholder.com/150',
+    description: 'Producto 2 - Descripción del producto de muestra',
+    status: 'Entregado',
+  },
+  {
+    id: 3,
+    image: 'https://via.placeholder.com/150',
+    description: 'Producto 3 - Descripción del producto de muestra',
+    status: 'Cancelado',
+  },
 ];
 
 const MyPurchases = ({ purchases = examplePurchases }) => {
