@@ -3,52 +3,50 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: '100%',
     padding: 20,
-    backgroundColor: '#f0f4f8', 
+    backgroundColor: '#f0f4f8',  // Fondo similar al de Profile
   },
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    color: '#333', 
+    fontWeight: '700',  // Alineado con el estilo de Profile
+    marginBottom: 30,
+    color: '#2c3e50',  // Color de texto similar al de Profile
+    textAlign: 'center',
   },
-  favoriteItem: {
+  purchaseItem: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 15,
     paddingHorizontal: 10,
-    backgroundColor: 'white', 
-    borderRadius: 12, 
-    elevation: 3, 
-    marginBottom: 15,
+    borderRadius: 10,
+    backgroundColor: '#ffffff',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowRadius: 5,
+    elevation: 3,
+    marginBottom: 15,
+    width: '100%', // Ocupa todo el ancho disponible
   },
   image: {
     width: 70,
     height: 70,
-    borderRadius: 8, 
     resizeMode: 'cover',
+    borderRadius: 10,
     marginRight: 15,
   },
   details: {
     flex: 1,
+    justifyContent: 'center',
   },
   description: {
     fontSize: 18,
-    fontWeight: '600', 
     color: '#333',
   },
   status: {
     fontSize: 14,
-    color: 'gray',
-  },
-  heartIcon: {
-    position: 'absolute',
-    top: 10,
-    right: 10,
+    color: '#555',
   },
   emptyText: {
     textAlign: 'center',

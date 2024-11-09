@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons'; // Asegúrate de tener esta libre
 import styles from '../styles/ProfileStyles'; // Asegúrate de tener tus estilos definidos
 import VisualProfile from './VisualProfile'; // Importa VisualProfile
 import MyPurchases from './MyPurchases'; // Importa MyPurchases
+import MyFavorites from './MyFavorites'; // Importa MyFavorites
 
 const exampleUser = {
   firstName: 'Juan',
@@ -43,6 +44,11 @@ const Profile = ({ user = exampleUser }) => {
     setCurrentScreen('myPurchases'); // Cambia la pantalla actual a 'myPurchases'
   };
 
+  // Función para manejar el clic en el botón de "Favoritos"
+  const handleMyFavoritesClick = () => {
+    setCurrentScreen('myFavorites'); // Cambia la pantalla actual a 'myFavorites'
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Profile</Text>
@@ -64,11 +70,12 @@ const Profile = ({ user = exampleUser }) => {
           <Text style={styles.iconLabel}>Mis compras</Text>
         </Pressable>
 
-        <Pressable style={styles.iconButton}>
+        <Pressable style={styles.iconButton} onPress={handleMyFavoritesClick}>
           <Ionicons name="heart-outline" size={24} color="#008CBA" />
           <Text style={styles.iconLabel}>Favoritos</Text>
         </Pressable>
       </View>
+
       <View style={styles.cardScreen}>
         {/* Mostrar la pantalla correspondiente según el estado 'currentScreen' */}
         {currentScreen === 'profile' && (
@@ -79,6 +86,7 @@ const Profile = ({ user = exampleUser }) => {
         )}
 
         {currentScreen === 'myPurchases' && <MyPurchases user={user} />}
+        {currentScreen === 'myFavorites' && <MyFavorites user={user} />}
       </View>
     </View>
   );
