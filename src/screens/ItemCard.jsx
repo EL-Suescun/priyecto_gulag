@@ -1,16 +1,37 @@
-import ItemDetails from './ItemDetails';
 import React, { useState } from 'react';
 import { View, Text, Image, Pressable, Modal, Button } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons'; 
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { doc, updateDoc, setDoc, deleteDoc } from 'firebase/firestore';
+import { db } from '../database/firebase';
 import styles from '../styles/ItemListStyles';
+import ItemDetails from './ItemDetails';
 
 const ItemCard = ({ item, onFavoriteToggle, onRemoveItem, showRemoveButton }) => {
   const [isFavorite, setIsFavorite] = useState(item.favorite);
   const [modalVisible, setModalVisible] = useState(false);
 
-  const handleFavoriteToggle = () => {
-    setIsFavorite(!isFavorite);
-    onFavoriteToggle(item.id); 
+  const handleFavoriteToggle = async () => {
+    const newFavoriteStatus = !isFavorite;
+    setIsFavorite(newFavoriteStatus);
+    onFavoriteToggle(item.id);  // Llamar a la función que se pasa como prop
+
+    try {
+      const itemRef = doc(db, 'productos', item.id);  // Referencia con el id de Firestore
+      await updateDoc(itemRef, { favorite: newFavoriteStatus });
+
+      // Si el producto se marca como favorito, agrégalo a la colección 'favoritos'
+      if (newFavoriteStatus) {
+        const favoriteRef = doc(db, 'favoritos', item.id);  // Usa el id del producto
+        await setDoc(favoriteRef, item);  // Agregar el producto completo a la colección favoritos
+      } else {
+        // Si se desmarca como favorito, elimínalo de la colección 'favoritos'
+        const favoriteRef = doc(db, 'favoritos', item.id);
+        await deleteDoc(favoriteRef);  // Eliminar el producto de la colección favoritos
+      }
+    } catch (error) {
+      console.error("Error al actualizar el estado de favorito:", error);
+      setIsFavorite(isFavorite);  // Si ocurre un error, revertir el estado
+    }
   };
 
   const discountedPrice = item.offer > 0 ? item.price * (1 - item.offer / 100) : null;
