@@ -3,21 +3,11 @@ import { View, Text, TextInput, Image, Button, FlatList, TouchableOpacity } from
 import { FontAwesome } from '@expo/vector-icons';
 import styles from '../styles/ItemDetailsStyles';
 
-const ItemDetails = () => {
-  // Item de ejemplo para pruebas
-  const item = {
-    name: 'Smartphone Pro Max',
-    image: 'https://example.com/smartphone.jpg',
-    description: 'El mejor smartphone con pantalla OLED y cámara avanzada.',
-    price: 99999,
-    features: 'Pantalla OLED, 128GB de almacenamiento, batería de larga duración.',
-    paymentMethods: ['PSE', 'Tarjeta de crédito', 'Efecty']
-  };
-
+const ItemDetails = ({ item, onFavoriteToggle }) => {
   const [question, setQuestion] = useState('');
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState(0);
-  const [questions, setQuestions] = useState([]); 
+  const [questions, setQuestions] = useState([]);
   const [comments, setComments] = useState([]);
 
   const handleSendQuestion = () => {
@@ -55,7 +45,9 @@ const ItemDetails = () => {
       <Text style={styles.features}>{item.features}</Text>
 
       <Text style={styles.sectionTitle}>Medios de pago</Text>
-      <Text style={styles.paymentMethods}>{item.paymentMethods.join(', ')}</Text>
+      <Text style={styles.paymentMethods}>
+        {Array.isArray(item.paymentMethods) ? item.paymentMethods.join(', ') : 'No especificado'}
+      </Text>
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Preguntas al vendedor</Text>
@@ -101,7 +93,7 @@ const ItemDetails = () => {
         />
       </View>
     </View>
-  ); 
+  );
 };
 
 export default ItemDetails;

@@ -1,10 +1,12 @@
+import ItemDetails from './ItemDetails';
 import React, { useState } from 'react';
-import { View, Text, Image, Pressable } from 'react-native';
+import { View, Text, Image, Pressable, Modal, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'; 
 import styles from '../styles/ItemListStyles';
 
 const ItemCard = ({ item, onFavoriteToggle, onRemoveItem, showRemoveButton }) => {
   const [isFavorite, setIsFavorite] = useState(item.favorite);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const handleFavoriteToggle = () => {
     setIsFavorite(!isFavorite);
@@ -12,12 +14,13 @@ const ItemCard = ({ item, onFavoriteToggle, onRemoveItem, showRemoveButton }) =>
   };
 
   const discountedPrice = item.offer > 0 ? item.price * (1 - item.offer / 100) : null;
-
   const isOutOfStock = item.available === 0;
 
   return (
     <View style={styles.itemContainer}>
-      <Image source={{ uri: item.image }} style={styles.thumbnail} />
+      <Pressable onPress={() => setModalVisible(true)}>
+        <Image source={{ uri: item.image }} style={styles.thumbnail} />
+      </Pressable>
       <View style={styles.itemDetails}>
         <Text style={styles.itemName}>{item.name}</Text>
         <Text style={styles.itemDescription}>{item.shortDescription}</Text>
@@ -43,6 +46,21 @@ const ItemCard = ({ item, onFavoriteToggle, onRemoveItem, showRemoveButton }) =>
           <Text style={styles.removeButtonText}>Eliminar</Text>
         </Pressable>
       )}
+
+      {/* Modal para mostrar los detalles del producto */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <ItemDetails item={item} onFavoriteToggle={handleFavoriteToggle} />
+            <Button title="Cerrar" onPress={() => setModalVisible(false)} />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
